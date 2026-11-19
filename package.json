@@ -1,0 +1,12 @@
+{
+  "name": "creator-finder",
+  "version": "1.1.6",
+  "description": "国外小博主寻找器：按平台、领域、数量串行抓取 5k-20k 粉丝创作者，自动去重",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node server.js"
+  },
+  "author": "",
+  "license": "MIT"
+}
