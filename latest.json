@@ -1,19 +1,19 @@
 {
-  "version": "1.1.0",
-  "publishedAt": "2026-11-19T05:55:36.187Z",
-  "notes": "## 1.1.0\n\n**搜索结果更稳、更多**\n\n- X / TikTok / Rumble 的发现不再只靠搜索引擎：新增跨平台桥接，从 Kick 频道资料、YouTube 视频简介/关于页里提取创作者自己填的 X / TikTok / Rumble 账号，直接进核验队列。\n- 搜索引擎降级策略：DDG 优先（快），Brave 固定走 curl 并识别 30–60 秒的慢速陷阱；一家被限流不再拖住整轮。\n- 新增「备用出口」：可填多个代理，搜索源返回 429/202/403 时自动换一个出口并清空旧退避。\n- 新增可选 Brave Search API key：填了就不再抓网页搜索（不受 IP 限流影响）。\n- YouTube 发现最多翻 3 页（窄主题能捞到更多 5k–20k 频道）。\n- 搜索源被限流时不再把平台标成「出错」，只提示「暂时不可用」。\n\n**应用内升级**\n\n- 顶部「检查更新」：检查走 GitHub Release，失败回退 jsDelivr 快照。\n- 下载会在直连 + 3 个国内镜像之间测 256KB 速度，挑最快通道；完成后校验 sha256。\n- 覆盖程序本体时自动跳过 data / results / userData，历史和导出结果不会丢。\n\n**安装方式**\n\n- 便携版：解压后运行「双击启动软件.vbs」。\n- 源码包：creator-finder-source-1.1.0.zip",
+  "version": "1.1.1",
+  "publishedAt": "2026-11-19T06:10:13.397Z",
+  "notes": "## 1.1.1\n\n同步 1.1.0 的全部改进，并修掉应用内升级的一个真 bug：\n\n- **覆盖更新脚本在本进程退出后不执行**：Electron 会把它拉起的子进程一起带走。现在改用 `Start-Process` 起独立进程（并等它真正起来），已实测「覆盖 → 重启」全链路可跑通，且不会动 `data/`、`results/`、`userData/`、`portable.flag`。\n- 下载增加 45 秒无数据看门狗，镜像卡住不会让进度条永远停在 0%。\n\n以下为 1.1.0 的内容：\n\n**搜索结果更稳、更多**\n\n- X / TikTok / Rumble 的发现不再只靠搜索引擎：新增**跨平台桥接**，从 Kick 频道资料的社交字段、YouTube 视频简介和频道「关于」页里，提取创作者自己填的 X / TikTok / Rumble 账号，直接进核验队列。\n- 只勾 X / TikTok / Rumble 时，会先用 YouTube 当发现引擎采一批种子（不产出 YouTube 结果）。\n- 搜索引擎降级策略：DDG 优先（3 秒），Brave 固定走 curl 并识别 30–60 秒的慢速陷阱；一家被限流不再拖住整轮。\n- 新增「**备用出口**」：可填多个代理，搜索源返回 429 / 202 / 403 时自动换出口并清空旧退避。\n- 新增可选 **Brave Search API key**：填了就直接走 JSON 接口，不再抓网页搜索（不受 IP 限流影响）。\n- YouTube 发现最多翻 3 页（窄主题能捞到更多 5k–20k 频道）。\n- 搜索源被限流不再把平台标成「出错」，只提示「暂时不可用」，本轮继续跑其它关键词。\n\n**应用内升级**\n\n- 顶部「检查更新」：检查走 GitHub Release（api.github.com），失败回退 jsDelivr 上的 `latest.json`。\n- 下载在直连 + 3 个国内镜像（ghproxy.net / gh-proxy.com / ghfast.top）之间测 256KB 速度，挑最快的通道。\n- 完成后校验 sha256（用 GitHub API 的 digest）。\n- 覆盖程序本体时自动跳过 `data`、`results`、`userData`、`logs`、`portable.flag`，历史与导出结果不丢。\n\n**安装方式**\n\n- 便携版：解压后运行「双击启动软件.vbs」。\n- 源码包：`creator-finder-source-1.1.1.zip`。\n",
   "assets": {
     "portable": {
-      "name": "creator-finder-1.1.0-portable.zip",
-      "size": 115163228,
-      "sha256": "280E1717C388BBE2F44FE45362DCFC13BBDE9EF6F08ADD60F48BDDD022367C9A",
-      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.0/creator-finder-1.1.0-portable.zip"
+      "name": "creator-finder-1.1.1-portable.zip",
+      "size": 115163745,
+      "sha256": "AC970309BA691CEDF2B9E7B82120CA950E6E78063A1B8735F005BE480F9950D7",
+      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.1/creator-finder-1.1.1-portable.zip"
     },
     "source": {
-      "name": "creator-finder-source-1.1.0.zip",
-      "size": 125773,
-      "sha256": "5971744D51B5B3B56A6EA65DB8BF7CC437E5653138CABBCECCA95B3853420F57",
-      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.0/creator-finder-source-1.1.0.zip"
+      "name": "creator-finder-source-1.1.1.zip",
+      "size": 126156,
+      "sha256": "D4581D286CF78D41D17CDB8EF09FA17F27CBACD5C00D7AD4DD462411806C41C0",
+      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.1/creator-finder-source-1.1.1.zip"
     }
   }
 }
