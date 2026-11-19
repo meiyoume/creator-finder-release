@@ -1,19 +1,19 @@
 {
-  "version": "1.1.2",
-  "publishedAt": "2026-11-19T06:23:22.323Z",
-  "notes": "## 1.1.2\n\n同步 1.1.0 的全部改进，并修掉应用内升级的一个真 bug：\n\n- **覆盖更新脚本在本进程退出后不执行**：Electron 会把它拉起的子进程一起带走。现在改用 `Start-Process` 起独立进程（并等它真正起来），已实测「覆盖 → 重启」全链路可跑通，且不会动 `data/`、`results/`、`userData/`、`portable.flag`。\n- 下载增加 45 秒无数据看门狗，镜像卡住不会让进度条永远停在 0%。\n\n以下为 1.1.0 的内容：\n\n**搜索结果更稳、更多**\n\n- X / TikTok / Rumble 的发现不再只靠搜索引擎：新增**跨平台桥接**，从 Kick 频道资料的社交字段、YouTube 视频简介和频道「关于」页里，提取创作者自己填的 X / TikTok / Rumble 账号，直接进核验队列。\n- 只勾 X / TikTok / Rumble 时，会先用 YouTube 当发现引擎采一批种子（不产出 YouTube 结果）。\n- 搜索引擎降级策略：DDG 优先（3 秒），Brave 固定走 curl 并识别 30–60 秒的慢速陷阱；一家被限流不再拖住整轮。\n- 新增「**备用出口**」：可填多个代理，搜索源返回 429 / 202 / 403 时自动换出口并清空旧退避。\n- 新增可选 **Brave Search API key**：填了就直接走 JSON 接口，不再抓网页搜索（不受 IP 限流影响）。\n- YouTube 发现最多翻 3 页（窄主题能捞到更多 5k–20k 频道）。\n- 搜索源被限流不再把平台标成「出错」，只提示「暂时不可用」，本轮继续跑其它关键词。\n\n**应用内升级**\n\n- 顶部「检查更新」：检查走 GitHub Release（api.github.com），失败回退 jsDelivr 上的 `latest.json`。\n- 下载在直连 + 3 个国内镜像（ghproxy.net / gh-proxy.com / ghfast.top）之间测 256KB 速度，挑最快的通道。\n- 完成后校验 sha256（用 GitHub API 的 digest）。\n- 覆盖程序本体时自动跳过 `data`、`results`、`userData`、`logs`、`portable.flag`，历史与导出结果不丢。\n\n**安装方式**\n\n- 便携版：解压后运行「双击启动软件.vbs」。\n- 源码包：`creator-finder-source-1.1.2.zip`。\n\n**1.1.2 修复**\n\n- 覆盖更新时如果目标目录已有 `runtime/`，不再重复拷贝运行时（electron.exe 正被本进程占用，原来会让 robocopy 报错）。\n- 版本号统一以 `package.json` 为准（`app.getVersion()` 在 Electron 主进程外会返回 Electron 自己的版本，导致「永远是最新」）。\n",
+  "version": "1.1.3",
+  "publishedAt": "2026-11-19T06:29:16.682Z",
+  "notes": "## 1.1.3\n\n同步 1.1.0 的全部改进，并修掉应用内升级的一个真 bug：\n\n- **覆盖更新脚本在本进程退出后不执行**：Electron 会把它拉起的子进程一起带走。现在改用 `Start-Process` 起独立进程（并等它真正起来），已实测「覆盖 → 重启」全链路可跑通，且不会动 `data/`、`results/`、`userData/`、`portable.flag`。\n- 下载增加 45 秒无数据看门狗，镜像卡住不会让进度条永远停在 0%。\n\n以下为 1.1.0 的内容：\n\n**搜索结果更稳、更多**\n\n- X / TikTok / Rumble 的发现不再只靠搜索引擎：新增**跨平台桥接**，从 Kick 频道资料的社交字段、YouTube 视频简介和频道「关于」页里，提取创作者自己填的 X / TikTok / Rumble 账号，直接进核验队列。\n- 只勾 X / TikTok / Rumble 时，会先用 YouTube 当发现引擎采一批种子（不产出 YouTube 结果）。\n- 搜索引擎降级策略：DDG 优先（3 秒），Brave 固定走 curl 并识别 30–60 秒的慢速陷阱；一家被限流不再拖住整轮。\n- 新增「**备用出口**」：可填多个代理，搜索源返回 429 / 202 / 403 时自动换出口并清空旧退避。\n- 新增可选 **Brave Search API key**：填了就直接走 JSON 接口，不再抓网页搜索（不受 IP 限流影响）。\n- YouTube 发现最多翻 3 页（窄主题能捞到更多 5k–20k 频道）。\n- 搜索源被限流不再把平台标成「出错」，只提示「暂时不可用」，本轮继续跑其它关键词。\n\n**应用内升级**\n\n- 顶部「检查更新」：检查走 GitHub Release（api.github.com），失败回退 jsDelivr 上的 `latest.json`。\n- 下载在直连 + 3 个国内镜像（ghproxy.net / gh-proxy.com / ghfast.top）之间测 256KB 速度，挑最快的通道。\n- 完成后校验 sha256（用 GitHub API 的 digest）。\n- 覆盖程序本体时自动跳过 `data`、`results`、`userData`、`logs`、`portable.flag`，历史与导出结果不丢。\n\n**安装方式**\n\n- 便携版：解压后运行「双击启动软件.vbs」。\n- 源码包：`creator-finder-source-1.1.3.zip`。\n\n**1.1.3 修复**\n\n- 覆盖更新时如果目标目录已有 `runtime/`，不再重复拷贝运行时（electron.exe 正被本进程占用，原来会让 robocopy 报错）。\n- 版本号统一以 `package.json` 为准（`app.getVersion()` 在 Electron 主进程外会返回 Electron 自己的版本，导致「永远是最新」）。\n\n**1.1.3 修复**\n\n- 解包改用每次唯一目录：上一轮残留被占用时 `rmSync` 会 ENOTEMPTY，把整次升级炸掉（实测踩到）。\n- 下载开始前清理临时目录里的旧包，避免堆几百 MB。\n",
   "assets": {
     "portable": {
-      "name": "creator-finder-1.1.2-portable.zip",
-      "size": 115164049,
-      "sha256": "3B4FBDA3D01273469D9EBA2C4CAF5929652D28DE4BFD51777B30454E0546C12F",
-      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.2/creator-finder-1.1.2-portable.zip"
+      "name": "creator-finder-1.1.3-portable.zip",
+      "size": 115164407,
+      "sha256": "E89481C4D3A834AB650A9BCD35F905BBC5179CA3EA436823D93359B561921BA5",
+      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.3/creator-finder-1.1.3-portable.zip"
     },
     "source": {
-      "name": "creator-finder-source-1.1.2.zip",
-      "size": 126458,
-      "sha256": "571D2D66C5CE796EBA2542EFE04CB3E0D2E8DFC284FB67AC8C52FCC3086D95F3",
-      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.2/creator-finder-source-1.1.2.zip"
+      "name": "creator-finder-source-1.1.3.zip",
+      "size": 126816,
+      "sha256": "D8F755645B9DF5DF1549F4E60408C9479E075A65CFB188773283C32520BDF780",
+      "url": "https://github.com/meiyoume/creator-finder-release/releases/download/v1.1.3/creator-finder-source-1.1.3.zip"
     }
   }
 }
